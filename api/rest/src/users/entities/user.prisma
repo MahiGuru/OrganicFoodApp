@@ -1,0 +1,60 @@
+model User {
+  id    Int     @default(autoincrement()) @id
+  createdAt DateTime @default(now())
+  email String  @unique
+  name  String
+  password  String
+  profile Profile
+  shops Shop
+  // managed_shop Shop
+  is_active Boolean  @default(false)
+  address Address[]
+}
+
+model Profile { 
+  id    Int     @default(autoincrement()) @id
+}
+
+
+model Shop {
+  id    Int     @default(autoincrement()) @id
+  owner_id Int
+  // owner User
+  staffs User[]
+  is_active   Boolean  @default(false)
+  orders_count Int?
+  products_count Int?
+  balance Balance?  @relation(fields: [balanceId], references: [id])
+  balanceId Int?
+  name String   
+  slug String   
+  description String   
+  cover_image Attachment?
+  address UserAddress
+  settings ShopSettings
+  distance String?
+  lat String?  
+  lng String?
+}
+
+
+model Address {
+  id    Int     @default(autoincrement()) @id
+}
+
+
+model Balance {
+  id    Int     @default(autoincrement()) @id
+}
+
+model Attachment {
+  id    Int     @default(autoincrement()) @id
+}
+
+model UserAddress {
+  id    Int     @default(autoincrement()) @id
+}
+
+model ShopSettings {
+  id    Int     @default(autoincrement()) @id
+}
